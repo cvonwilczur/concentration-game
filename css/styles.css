@@ -1,0 +1,48 @@
+/* Global Values */
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0
+}
+
+body {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 10px auto;
+  width: 90%;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+section {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Header Stylings */
+
+header h1 {
+  width: 100%;
+}
+
+header nav {
+  width: 100%;
+}
+
+
+/* Card Stylings */
+
+.card {
+  width: 23%;
+  background-color: black;
+  height: 100px;
+  margin: 1%;
+}
