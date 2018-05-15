@@ -2,7 +2,10 @@
 const unflippedCard = document.querySelectorAll(".card");
 const flippedCardValues = document.querySelectorAll(".card-flipped-value");
 const visibleCards = document.querySelectorAll(".visible");
-let activeCards = document.querySelectorAll(".active");
+let firstCardSelected = document.querySelectorAll('.firstCardSelected');
+let activeCardCount = 0;
+let gameScore = 0;
+let turnCount = 0;
 let cardValues = [
   "A",
   "B",
@@ -21,8 +24,6 @@ let cardValues = [
   "G",
   "H"
 ];
-let activeCardCount = 0;
-let first = document.querySelectorAll('.first');
 
 //Initialize
 init();
@@ -32,11 +33,10 @@ function init() {
   addEventListenerCards();
   addValuestoCards();
 }
+
 // Flip functionality
 function flip() {
   event.target.classList.toggle('visible');
-  event.target.classList.toggle('active');
-  activeCards = document.querySelectorAll(".active");
 };
 
 // Adding Listener to all Cards for Flip/Match functionality
@@ -57,22 +57,29 @@ function addValuestoCards() {
 // Logic for whether or not cards match, increase score
 function doCardsMatch() {
   if (activeCardCount === 0) {
-    console.log("One more!");
-    event.target.classList.toggle('first');
+    event.target.classList.toggle('firstCardSelected');
     activeCardCount = 1;
-    first = document.querySelector('.first');
-  } else if (activeCardCount === 1 && event.target.textContent === first.textContent) {
-    console.log("Yes!");
+    firstCardSelected = document.querySelector('.firstCardSelected');
+  } else if (activeCardCount === 1 && event.target.textContent === firstCardSelected.textContent) {
+    gameScore += 1;
+    turnCount += 1;
     resetCardState();
   } else {
-    console.log("No!");
+    let firstWrongCard = firstCardSelected;
+    let secondWrongCard = event.target;
+    let flipWrongCards = function(){
+      secondWrongCard.classList.toggle('visible');
+      firstWrongCard.classList.toggle('visible');
+    }
+    setTimeout(flipWrongCards, 2000);
     resetCardState();
+    turnCount +=1;
   }
 }
 
 // Reset card Values
 function resetCardState() {
   activeCardCount = 0;
-  first.classList.toggle('first');
-  first = null;
+  firstCardSelected.classList.toggle('firstCardSelected');
+  firstCardSelected = 0;
 }
