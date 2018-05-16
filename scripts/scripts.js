@@ -3,6 +3,7 @@ const unflippedCard = document.querySelectorAll(".card");
 const flippedCardValues = document.querySelectorAll(".card-flipped-value");
 const visibleCards = document.querySelectorAll(".visible");
 const resetButton = document.querySelector(".reset")
+const turnCounter = document.querySelector(".turn-counter")
 let firstCardSelected = document.querySelectorAll('.firstCardSelected');
 let activeCardCount = 0;
 let gameScore = 0;
@@ -91,6 +92,12 @@ function resetAll() {
   }
   gameScore = 0;
   turnCount = 0;
+  updateTurn();
+}
+
+//2.6 Add Mechanics to Turn Counter
+function updateTurn(){
+  turnCounter.textContent = turnCount;
 }
 
 //3.0 GAME LOGIC
@@ -104,6 +111,7 @@ function doCardsMatch() {
   } else if (activeCardCount === 1 && event.target.textContent === firstCardSelected.textContent) {
     gameScore += 1;
     turnCount += 1;
+    updateTurn();
     resetCardState();
   } else {
     let firstWrongCard = firstCardSelected;
@@ -115,5 +123,6 @@ function doCardsMatch() {
     setTimeout(flipWrongCards, 2000);
     resetCardState();
     turnCount += 1;
+    updateTurn();
   }
 }
