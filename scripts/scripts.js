@@ -2,8 +2,9 @@
 const unflippedCard = document.querySelectorAll(".card");
 const flippedCardValues = document.querySelectorAll(".card-flipped-value");
 const visibleCards = document.querySelectorAll(".visible");
-const resetButton = document.querySelector(".reset")
-const turnCounter = document.querySelector(".turn-counter")
+const resetButton = document.querySelector(".reset");
+const turnCounter = document.querySelector(".turn-counter");
+const starTracker = document.querySelector(".star-tracker");
 let firstCardSelected = document.querySelectorAll('.firstCardSelected');
 let activeCardCount = 0;
 let gameScore = 0;
@@ -93,11 +94,23 @@ function resetAll() {
   gameScore = 0;
   turnCount = 0;
   updateTurn();
+  updateStars();
 }
 
 //2.6 Add Mechanics to Turn Counter
 function updateTurn(){
   turnCounter.textContent = turnCount;
+}
+
+//2.7 Track Number of Turns and update firstCardSelected
+function updateStars(){
+  if (turnCount >= 4 && turnCount <= 10){
+    starTracker.textContent = 'o**'
+  } else if (turnCount >= 11){
+    starTracker.textContent = 'ooo'
+  } else {
+    starTracker.textContent = '***'
+  }
 }
 
 //3.0 GAME LOGIC
@@ -112,6 +125,7 @@ function doCardsMatch() {
     gameScore += 1;
     turnCount += 1;
     updateTurn();
+    updateStars();
     resetCardState();
   } else {
     let firstWrongCard = firstCardSelected;
@@ -124,5 +138,6 @@ function doCardsMatch() {
     resetCardState();
     turnCount += 1;
     updateTurn();
+    updateStars();
   }
 }
