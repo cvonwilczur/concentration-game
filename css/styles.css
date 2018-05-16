@@ -6,7 +6,7 @@
   border: 0
 }
 
-body {
+.game-screen {
   display: flex;
   flex-wrap: wrap;
   max-width: 1000px;

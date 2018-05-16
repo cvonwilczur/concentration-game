@@ -5,6 +5,8 @@ const visibleCards = document.querySelectorAll(".visible");
 const resetButton = document.querySelector(".reset");
 const turnCounter = document.querySelector(".turn-counter");
 const starTracker = document.querySelector(".star-tracker");
+const gameScreen = document.querySelector('.game-screen');
+const body = document.querySelector('body');
 let firstCardSelected = document.querySelectorAll('.firstCardSelected');
 let activeCardCount = 0;
 let gameScore = 0;
@@ -127,6 +129,7 @@ function doCardsMatch() {
     updateTurn();
     updateStars();
     resetCardState();
+    winScreen();
   } else {
     let firstWrongCard = firstCardSelected;
     let secondWrongCard = event.target;
@@ -139,5 +142,16 @@ function doCardsMatch() {
     turnCount += 1;
     updateTurn();
     updateStars();
+  }
+}
+
+//3.2 Winning LOGIC
+function winScreen(){
+  if (gameScore === 8){
+    gameScreen.classList.toggle('visible');
+    let winMessage = document.createElement('h1')
+    let winMessageText = document.createTextNode('You won, motherfucker.');
+    winMessage.appendChild(winMessageText);
+    body.appendChild(winMessage);
   }
 }
