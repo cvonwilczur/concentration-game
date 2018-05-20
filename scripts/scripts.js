@@ -7,8 +7,13 @@ const turnCounter = document.querySelector(".turn-counter");
 const starTracker = document.querySelector(".star-tracker");
 const gameScreen = document.querySelector('.game-screen');
 const body = document.querySelector('body');
+const secondTimer = document.querySelector('.seconds-timer');
+const minuteTimer = document.querySelector('.minutes-timer');
 let firstCardSelected = document.querySelectorAll('.firstCardSelected');
+let minutes = 0;
+let seconds = 0;
 let activeCardCount = 0;
+let gameStarted = 0;
 let gameScore = 0;
 let turnCount = 0;
 let cardValues = [
@@ -38,6 +43,7 @@ function init() {
   addEventListenerCards();
   shuffle(cardValues);
   addValuestoCards();
+  startTimer();
 }
 
 //1.2 Add Mechanics to Cards
@@ -98,6 +104,8 @@ function resetAll() {
   updateTurn();
   updateStars();
   addValuestoCards();
+  stopTimer();
+  startTimer();
 }
 
 //2.6 Add Mechanics to Turn Counter
@@ -114,6 +122,34 @@ function updateStars(){
   } else {
     starTracker.textContent = '***'
   }
+}
+
+//2.9 Game Timer Start
+function startTimer(){
+  if (gameStarted === 0) {
+    gameStarted = 1;
+    timer = setInterval(function(){
+        seconds++;
+        if (seconds <= 59){
+          secondTimer.textContent = seconds;
+        } else if (seconds === 60){
+          seconds = 0;
+          minutes ++;
+          minuteTimer.textContent = minutes;
+          secondTimer.textContent = seconds;
+        }
+      }, 1000)
+  }
+}
+
+//2.9 Game Timer Stop
+function stopTimer(){
+  clearInterval(timer);
+  minutes = 0;
+  seconds = 0;
+  gameStarted = 0;
+  minuteTimer.textContent = minutes;
+  secondTimer.textContent = seconds;
 }
 
 //3.0 GAME LOGIC
