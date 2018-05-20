@@ -97,6 +97,7 @@ function resetAll() {
   turnCount = 0;
   updateTurn();
   updateStars();
+  addValuestoCards();
 }
 
 //2.6 Add Mechanics to Turn Counter
