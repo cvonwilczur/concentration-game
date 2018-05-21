@@ -16,7 +16,7 @@ let oneCardSelected = false;
 let gameStarted = false;
 let gameScore = 0;
 let turnCount = 0;
-let starCount = '***';
+let starCount = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
 let cardValues = [
   "A",
   "B",
@@ -83,7 +83,7 @@ function doCardsMatch() {
       secondWrongCard.classList.toggle('visible');
       firstWrongCard.classList.toggle('visible');
     }
-    setTimeout(flipWrongCards, 2000);
+    setTimeout(flipWrongCards, 1000);
     resetCardState();
     turnCount += 1;
     updateTurn();
@@ -121,7 +121,7 @@ function resetAll() {
   }
   gameScore = 0;
   turnCount = 0;
-  starCount = '***';
+  starCount = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
   updateTurn();
   updateStars();
   addValuestoCards();
@@ -136,17 +136,17 @@ function updateTurn() {
 
 function updateStars() {
   if (turnCount >= 4 && turnCount <= 10) {
-    starTracker.textContent = starCount;
-    starCount = 'o**';
+    starTracker.innerHTML = starCount;
+    starCount = '<i class="far fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
   } else if (turnCount >= 11 && turnCount <= 18) {
-    starTracker.textContent = starCount;
-    starCount = 'oo*'
+    starTracker.innerHTML = starCount;
+    starCount = '<i class="far fa-star"></i><i class="far fa-star"></i><i class="fas fa-star"></i>';
   } else if (turnCount > 19) {
-    starTracker.textContent = starCount;
-    starCount = 'ooo';
+    starTracker.innerHTML = starCount;
+    starCount = '<i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
   } else {
-    starTracker.textContent = starCount;
-    starCount = '***';
+    starTracker.innerHTML = starCount;
+    starCount = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
   }
 }
 
@@ -183,19 +183,26 @@ function winScreen() {
     gameScreen.classList.toggle('visible');
     let winMessage = document.createElement('h1')
     let winMessageText = document.createTextNode(`Congratulations! You Won!
-      With ${turnCount} Moves and your Star Score was ${starCount}.
-      Woooooo!`);
+      With ${turnCount} Moves and your Star Score was: `);
     let winResetButton = document.createElement('button');
     let winResetButtonText = document.createTextNode('Reset?');
+    let winStarScore = document.createElement('div');
     winResetButton.appendChild(winResetButtonText);
     winResetButton.addEventListener("click", function() {
       gameScreen.classList.toggle('visible');
       resetAll();
       body.removeChild(winMessage);
       body.removeChild(winResetButton);
+      body.removeChild(winStarScore);
     })
     winMessage.appendChild(winMessageText);
+    winStarScore.innerHTML = starCount;
+    winMessage.classList.toggle('winScreen');
+    winResetButton.classList.toggle('winButton');
+    winStarScore.classList.toggle('winStarScore');
     body.insertBefore(winMessage, body.childNodes[0]);
-    body.insertBefore(winResetButton, body.childNodes[1]);
+    body.insertBefore(winStarScore, body.childNodes[1]);
+    body.insertBefore(winResetButton, body.childNodes[2]);
+    window.scrollTo(0, 0);
   }
 }

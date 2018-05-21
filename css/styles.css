@@ -3,55 +3,146 @@
 * {
   margin: 0;
   padding: 0;
-  border: 0
+  border: 0;
+  font-weight: normal;
 }
 
 .game-screen {
   display: flex;
   flex-wrap: wrap;
   max-width: 1000px;
-  margin: 10px auto;
+  margin: 2px auto;
   width: 90%;
 }
 
 header {
   width: 100%;
+  min-width: 660px;
   display: flex;
   flex-wrap: wrap;
   text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  max-width: 880px;
+  min-width: 660px;
+  margin: 10px auto;
 }
 
 section {
   width: 100%;
+  max-width: 880px;
+  min-width: 660px;
+  padding: 10px;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-image: url("../image/download.png");
+  box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+  padding: 32px;
+  margin: 0 auto;
 }
 
 /* Header Stylings */
 
 header h1 {
   width: 100%;
+  font-weight: 700;
+  margin: 5px auto;
 }
 
 header nav {
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+header button {
+  width: 15%;
+  background-color: #cb4e4e;
+  color: #fff;
+  box-shadow: 0 6px #ab3c3c;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 10px 35px;
+  margin: 10px auto;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  border-radius: 40px;
+}
+
+.nav-left {
+  width: 50%;
+}
+
+.nav-right {
+  width: 50%;
 }
 
 /* Card Stylings */
 
 .card {
   width: 23%;
-  background-color: black;
-  height: 100px;
+  min-height: 125px;
+  min-width: 125px;
+  background-color: #2e3d49;
+  color: #fff;
+  border-radius: 8px;
   margin: 1%;
+  cursor: pointer;
 }
 
 .card-flipped-value {
   width: 100%;
-  height: 100px;
-  background-color: blue;
+  min-height: 125px;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 33px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #02b3e4;
+  justify-content: center;
+  line-height: 115px;
 }
 
 .visible {
   opacity: 0;
+}
+
+/* Win Screen Stylings */
+
+.winScreen {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  margin: 10px auto;
+  width: 500px;
+}
+
+.winButton {
+  width: 15%;
+  background-color: #cb4e4e;
+  color: #fff;
+  box-shadow: 0 6px #ab3c3c;
+  border: none;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  padding: 10px 35px;
+  margin: 15px auto;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 40px;
+  display: block;
+}
+
+.winStarScore {
+  display: block;
+  margin: 10px auto;
+  width: 15%;
+  text-align: center;
 }
