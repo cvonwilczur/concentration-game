@@ -9,11 +9,11 @@ const gameScreen = document.querySelector('.game-screen');
 const body = document.querySelector('body');
 const secondTimer = document.querySelector('.seconds-timer');
 const minuteTimer = document.querySelector('.minutes-timer');
-let firstCardSelected = document.querySelectorAll('.firstCardSelected');
+let firstCardSelected = 0;
 let minutes = 0;
 let seconds = 0;
-let activeCardCount = 0;
-let gameStarted = 0;
+let oneCardSelected = false;
+let gameStarted = false;
 let gameScore = 0;
 let turnCount = 0;
 let starCount = '***';
@@ -36,10 +36,9 @@ let cardValues = [
   "H"
 ];
 
-//1.0 INITIALIZE
+//Initialize Section
 init();
 
-//1.1 Add Functions to Init
 function init() {
   addEventListenerCards();
   shuffle(cardValues);
@@ -47,7 +46,7 @@ function init() {
   startTimer();
 }
 
-//1.2 Add Mechanics to Cards
+//Card Functionality Section
 function addEventListenerCards() {
   for (var i = 0; i < unflippedCard.length; i++) {
     unflippedCard[i].addEventListener('click', flip);
@@ -55,120 +54,22 @@ function addEventListenerCards() {
   }
 }
 
-//1.3 Add Mechanics to Reset Button
-resetButton.addEventListener('click', resetAll)
-
-// 2.0 MECHANICS FUNCTIONALITY
-
-//2.1 Shuffle Mechanic
-function shuffle(array) {
-  var currIndex = array.length,
-    tempValue,
-    randIndex;
-  while (0 !== currIndex) {
-    randIndex = Math.floor(Math.random() * currIndex);
-    currIndex -= 1;
-    tempValue = array[currIndex];
-    array[currIndex] = array[randIndex];
-    array[randIndex] = tempValue;
-  }
-  return array;
-}
-
-//2.2 Flip Mechanic
 function flip() {
   event.target.classList.toggle('visible');
 };
 
-//2.3 Card Value Mechanic
 function addValuestoCards() {
   for (var i = 0; i < cardValues.length; i++) {
     flippedCardValues[i].textContent = cardValues[i];
   }
 }
 
-//2.4 Reset Active Card Mechanic
-function resetCardState() {
-  activeCardCount = 0;
-  firstCardSelected.classList.toggle('firstCardSelected');
-  firstCardSelected = 0;
-}
-
-//2.5 Reset All
-function resetAll() {
-  shuffle(cardValues);
-  for (var i = 0; i < flippedCardValues.length; i++) {
-    flippedCardValues[i].classList.add('visible');
-  }
-  gameScore = 0;
-  turnCount = 0;
-  starCount = '***';
-  updateTurn();
-  updateStars();
-  addValuestoCards();
-  stopTimer();
-  startTimer();
-}
-
-//2.6 Add Mechanics to Turn Counter
-function updateTurn(){
-  turnCounter.textContent = turnCount;
-}
-
-//2.7 Track Number of Turns and update firstCardSelected
-function updateStars(){
-  if (turnCount >= 4 && turnCount <= 10){
-    starTracker.textContent = starCount;
-    starCount = 'o**';
-  } else if (turnCount >= 11 ** turnCount <= 18) {
-    starTracker.textContent = starCount;
-    starCount = 'oo*'
-  } else if (turnCount < 19){
-    starTracker.textContent = starCount;
-    starCount = 'ooo';
-  } else {
-    starTracker.textContent = starCount;
-    starCount = '***';
-  }
-}
-
-//2.9 Game Timer Start
-function startTimer(){
-  if (gameStarted === 0) {
-    gameStarted = 1;
-    timer = setInterval(function(){
-        seconds++;
-        if (seconds <= 59){
-          secondTimer.textContent = seconds;
-        } else if (seconds === 60){
-          seconds = 0;
-          minutes ++;
-          minuteTimer.textContent = minutes;
-          secondTimer.textContent = seconds;
-        }
-      }, 1000)
-  }
-}
-
-//2.9 Game Timer Stop
-function stopTimer(){
-  clearInterval(timer);
-  minutes = 0;
-  seconds = 0;
-  gameStarted = 0;
-  minuteTimer.textContent = minutes;
-  secondTimer.textContent = seconds;
-}
-
-//3.0 GAME LOGIC
-
-//3.1 Card Match Logic
 function doCardsMatch() {
-  if (activeCardCount === 0) {
+  if (oneCardSelected === false) {
     event.target.classList.toggle('firstCardSelected');
-    activeCardCount = 1;
+    oneCardSelected = true;
     firstCardSelected = document.querySelector('.firstCardSelected');
-  } else if (activeCardCount === 1 && event.target.textContent === firstCardSelected.textContent) {
+  } else if (oneCardSelected === true && event.target.textContent === firstCardSelected.textContent) {
     gameScore += 1;
     turnCount += 1;
     updateTurn();
@@ -190,9 +91,95 @@ function doCardsMatch() {
   }
 }
 
-//3.2 Winning LOGIC
-function winScreen(){
-  if (gameScore === 1){
+function resetCardState() {
+  oneCardSelected = false;
+  firstCardSelected.classList.toggle('firstCardSelected');
+  firstCardSelected = 0;
+}
+
+function shuffle(array) {
+  var currIndex = array.length,
+    tempValue,
+    randIndex;
+  while (0 !== currIndex) {
+    randIndex = Math.floor(Math.random() * currIndex);
+    currIndex -= 1;
+    tempValue = array[currIndex];
+    array[currIndex] = array[randIndex];
+    array[randIndex] = tempValue;
+  }
+  return array;
+}
+
+//Reset Button Functionality
+resetButton.addEventListener('click', resetAll)
+
+function resetAll() {
+  shuffle(cardValues);
+  for (var i = 0; i < flippedCardValues.length; i++) {
+    flippedCardValues[i].classList.add('visible');
+  }
+  gameScore = 0;
+  turnCount = 0;
+  starCount = '***';
+  updateTurn();
+  updateStars();
+  addValuestoCards();
+  stopTimer();
+  startTimer();
+}
+
+//Point Tracking Functionality
+function updateTurn() {
+  turnCounter.textContent = turnCount;
+}
+
+function updateStars() {
+  if (turnCount >= 4 && turnCount <= 10) {
+    starTracker.textContent = starCount;
+    starCount = 'o**';
+  } else if (turnCount >= 11 && turnCount <= 18) {
+    starTracker.textContent = starCount;
+    starCount = 'oo*'
+  } else if (turnCount > 19) {
+    starTracker.textContent = starCount;
+    starCount = 'ooo';
+  } else {
+    starTracker.textContent = starCount;
+    starCount = '***';
+  }
+}
+
+//Timer Functionality
+function startTimer() {
+  if (gameStarted === false) {
+    gameStarted = true;
+    timer = setInterval(function() {
+      seconds++;
+      if (seconds <= 59) {
+        secondTimer.textContent = seconds;
+      } else if (seconds === 60) {
+        seconds = 0;
+        minutes++;
+        minuteTimer.textContent = minutes;
+        secondTimer.textContent = seconds;
+      }
+    }, 1000)
+  }
+}
+
+function stopTimer() {
+  clearInterval(timer);
+  minutes = 0;
+  seconds = 0;
+  gameStarted = false;
+  minuteTimer.textContent = minutes;
+  secondTimer.textContent = seconds;
+}
+
+//Win Screen Functionality
+function winScreen() {
+  if (gameScore === 8) {
     gameScreen.classList.toggle('visible');
     let winMessage = document.createElement('h1')
     let winMessageText = document.createTextNode(`Congratulations! You Won!
@@ -201,14 +188,12 @@ function winScreen(){
     let winResetButton = document.createElement('button');
     let winResetButtonText = document.createTextNode('Reset?');
     winResetButton.appendChild(winResetButtonText);
-    winResetButton.setAttribute("name", "WinResetButton");
-    winResetButton.addEventListener("click", function(){
+    winResetButton.addEventListener("click", function() {
       gameScreen.classList.toggle('visible');
       resetAll();
       body.removeChild(winMessage);
       body.removeChild(winResetButton);
-    }
-  )
+    })
     winMessage.appendChild(winMessageText);
     body.insertBefore(winMessage, body.childNodes[0]);
     body.insertBefore(winResetButton, body.childNodes[1]);
