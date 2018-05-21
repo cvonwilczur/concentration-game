@@ -1,10 +1,10 @@
 // Global Variables
-const unflippedCard = document.querySelectorAll(".card");
-const flippedCardValues = document.querySelectorAll(".card-flipped-value");
-const visibleCards = document.querySelectorAll(".visible");
-const resetButton = document.querySelector(".reset");
-const turnCounter = document.querySelector(".turn-counter");
-const starTracker = document.querySelector(".star-tracker");
+const unflippedCard = document.querySelectorAll('.card');
+const flippedCardValues = document.querySelectorAll('.card-flipped-value');
+const visibleCards = document.querySelectorAll('.visible');
+const resetButton = document.querySelector('.reset');
+const turnCounter = document.querySelector('.turn-counter');
+const starTracker = document.querySelector('.star-tracker');
 const gameScreen = document.querySelector('.game-screen');
 const body = document.querySelector('body');
 const secondTimer = document.querySelector('.seconds-timer');
@@ -17,24 +17,7 @@ let gameStarted = false;
 let gameScore = 0;
 let turnCount = 0;
 let starCount = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
-let cardValues = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H"
-];
+let cardValues = [ "A", "B", "C", "D", "E", "F", "G", "H", "A", "B", "C", "D", "E", "F", "G", "H"];
 
 //Initialize Section
 init();
@@ -48,7 +31,7 @@ function init() {
 
 //Card Functionality Section
 function addEventListenerCards() {
-  for (var i = 0; i < unflippedCard.length; i++) {
+  for (i = 0; i < unflippedCard.length; i++) {
     unflippedCard[i].addEventListener('click', flip);
     unflippedCard[i].addEventListener('click', doCardsMatch);
   }
@@ -56,10 +39,10 @@ function addEventListenerCards() {
 
 function flip() {
   event.target.classList.toggle('visible');
-};
+}
 
 function addValuestoCards() {
-  for (var i = 0; i < cardValues.length; i++) {
+  for (i = 0; i < cardValues.length; i++) {
     flippedCardValues[i].textContent = cardValues[i];
   }
 }
@@ -98,7 +81,7 @@ function resetCardState() {
 }
 
 function shuffle(array) {
-  var currIndex = array.length,
+  let currIndex = array.length,
     tempValue,
     randIndex;
   while (0 !== currIndex) {
@@ -116,7 +99,7 @@ resetButton.addEventListener('click', resetAll)
 
 function resetAll() {
   shuffle(cardValues);
-  for (var i = 0; i < flippedCardValues.length; i++) {
+  for (i = 0; i < flippedCardValues.length; i++) {
     flippedCardValues[i].classList.add('visible');
   }
   gameScore = 0;
@@ -182,19 +165,19 @@ function winScreen() {
   if (gameScore === 8) {
     gameScreen.classList.toggle('visible');
     let winMessage = document.createElement('h1')
-    let winMessageText = document.createTextNode(`Congratulations! You Won!
-      With ${turnCount} Moves and your Star Score was: `);
+    let winMessageText = document.createTextNode(`Congratulations! You Won!`+
+      `With ${turnCount} Moves and your Star Score was: `);
     let winResetButton = document.createElement('button');
     let winResetButtonText = document.createTextNode('Reset?');
     let winStarScore = document.createElement('div');
     winResetButton.appendChild(winResetButtonText);
-    winResetButton.addEventListener("click", function() {
+    winResetButton.addEventListener('click', function() {
       gameScreen.classList.toggle('visible');
       resetAll();
       body.removeChild(winMessage);
       body.removeChild(winResetButton);
       body.removeChild(winStarScore);
-    })
+    });
     winMessage.appendChild(winMessageText);
     winStarScore.innerHTML = starCount;
     winMessage.classList.toggle('winScreen');

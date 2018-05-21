@@ -21,7 +21,7 @@ header {
   display: flex;
   flex-wrap: wrap;
   text-align: center;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-weight: 400;
   max-width: 880px;
   min-width: 660px;
@@ -117,7 +117,7 @@ header button {
 /* Win Screen Stylings */
 
 .winScreen {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-weight: 400;
   margin: 10px auto;
   width: 500px;
@@ -130,7 +130,7 @@ header button {
   box-shadow: 0 6px #ab3c3c;
   border: none;
   cursor: pointer;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-weight: 700;
   padding: 10px 35px;
   margin: 15px auto;
