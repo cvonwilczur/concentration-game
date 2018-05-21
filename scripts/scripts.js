@@ -16,6 +16,7 @@ let activeCardCount = 0;
 let gameStarted = 0;
 let gameScore = 0;
 let turnCount = 0;
+let starCount = '***';
 let cardValues = [
   "A",
   "B",
@@ -101,6 +102,7 @@ function resetAll() {
   }
   gameScore = 0;
   turnCount = 0;
+  starCount = '***';
   updateTurn();
   updateStars();
   addValuestoCards();
@@ -116,11 +118,17 @@ function updateTurn(){
 //2.7 Track Number of Turns and update firstCardSelected
 function updateStars(){
   if (turnCount >= 4 && turnCount <= 10){
-    starTracker.textContent = 'o**'
-  } else if (turnCount >= 11){
-    starTracker.textContent = 'ooo'
+    starTracker.textContent = starCount;
+    starCount = 'o**';
+  } else if (turnCount >= 11 ** turnCount <= 18) {
+    starTracker.textContent = starCount;
+    starCount = 'oo*'
+  } else if (turnCount < 19){
+    starTracker.textContent = starCount;
+    starCount = 'ooo';
   } else {
-    starTracker.textContent = '***'
+    starTracker.textContent = starCount;
+    starCount = '***';
   }
 }
 
@@ -184,11 +192,25 @@ function doCardsMatch() {
 
 //3.2 Winning LOGIC
 function winScreen(){
-  if (gameScore === 8){
+  if (gameScore === 1){
     gameScreen.classList.toggle('visible');
     let winMessage = document.createElement('h1')
-    let winMessageText = document.createTextNode('You won, motherfucker.');
+    let winMessageText = document.createTextNode(`Congratulations! You Won!
+      With ${turnCount} Moves and your Star Score was ${starCount}.
+      Woooooo!`);
+    let winResetButton = document.createElement('button');
+    let winResetButtonText = document.createTextNode('Reset?');
+    winResetButton.appendChild(winResetButtonText);
+    winResetButton.setAttribute("name", "WinResetButton");
+    winResetButton.addEventListener("click", function(){
+      gameScreen.classList.toggle('visible');
+      resetAll();
+      body.removeChild(winMessage);
+      body.removeChild(winResetButton);
+    }
+  )
     winMessage.appendChild(winMessageText);
-    body.appendChild(winMessage);
+    body.insertBefore(winMessage, body.childNodes[0]);
+    body.insertBefore(winResetButton, body.childNodes[1]);
   }
 }
