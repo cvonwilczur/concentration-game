@@ -9,6 +9,7 @@ const gameScreen = document.querySelector('.game-screen');
 const body = document.querySelector('body');
 const secondTimer = document.querySelector('.seconds-timer');
 const minuteTimer = document.querySelector('.minutes-timer');
+let twoCardsSelected = false;
 let firstCardSelected = 0;
 let minutes = 0;
 let seconds = 0;
@@ -32,7 +33,7 @@ function init() {
 //Card Functionality Section
 function addEventListenerCards() {
   for (i = 0; i < unflippedCard.length; i++) {
-    unflippedCard[i].addEventListener('click', flip);
+    // unflippedCard[i].addEventListener('click', flip);
     unflippedCard[i].addEventListener('click', doCardsMatch);
   }
 }
@@ -48,23 +49,33 @@ function addValuestoCards() {
 }
 
 function doCardsMatch() {
-  if (oneCardSelected === false) {
+  if (oneCardSelected === false && twoCardsSelected === false) {
+    flip();
     event.target.classList.toggle('firstCardSelected');
     oneCardSelected = true;
     firstCardSelected = document.querySelector('.firstCardSelected');
-  } else if (oneCardSelected === true && event.target.textContent === firstCardSelected.textContent) {
+  } else if (oneCardSelected === true && twoCardsSelected === false && event.target.textContent === firstCardSelected.textContent) {
+    flip();
     gameScore += 1;
     turnCount += 1;
     updateTurn();
     updateStars();
     resetCardState();
     winScreen();
-  } else {
+    twoCardsSelected = true;
+    let blockCardFlip = function() {
+      twoCardsSelected = false
+    }
+    setTimeout(blockCardFlip, 1000);
+  } else if (oneCardSelected === true && twoCardsSelected === false && event.target.textContent != firstCardSelected.textContent){
+    flip();
     let firstWrongCard = firstCardSelected;
     let secondWrongCard = event.target;
+    twoCardsSelected = true;
     let flipWrongCards = function() {
       secondWrongCard.classList.add('visible');
       firstWrongCard.classList.add('visible');
+      twoCardsSelected = false
     }
     setTimeout(flipWrongCards, 1000);
     resetCardState();
@@ -105,13 +116,16 @@ function resetAll() {
   gameScore = 0;
   turnCount = 0;
   oneCardSelected = false;
+  twoCardsSelected = false;
   starCount = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
   updateTurn();
   updateStars();
   addValuestoCards();
   stopTimer();
   startTimer();
-  resetCardState();
+  if (firstCardSelected !== 0){
+    resetCardState();
+  }
 }
 
 //Point Tracking Functionality
