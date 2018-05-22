@@ -165,6 +165,7 @@ header button {
   }
   .winScreen {
     min-width: 200px;
+    width: 100%;
   }
   .winButton {
     padding: 5px 10px;
@@ -189,6 +190,7 @@ header button {
   }
   .winScreen {
     min-width: 200px;
+    width: 100%;
   }
   .winButton {
     padding: 5px 10px;
