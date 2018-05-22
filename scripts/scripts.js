@@ -63,8 +63,8 @@ function doCardsMatch() {
     let firstWrongCard = firstCardSelected;
     let secondWrongCard = event.target;
     let flipWrongCards = function() {
-      secondWrongCard.classList.toggle('visible');
-      firstWrongCard.classList.toggle('visible');
+      secondWrongCard.classList.add('visible');
+      firstWrongCard.classList.add('visible');
     }
     setTimeout(flipWrongCards, 1000);
     resetCardState();
@@ -104,6 +104,7 @@ function resetAll() {
   }
   gameScore = 0;
   turnCount = 0;
+  oneCardSelected = false;
   starCount = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
   updateTurn();
   updateStars();
@@ -121,12 +122,9 @@ function updateStars() {
   if (turnCount >= 4 && turnCount <= 10) {
     starTracker.innerHTML = starCount;
     starCount = '<i class="far fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
-  } else if (turnCount >= 11 && turnCount <= 18) {
+  } else if (turnCount >= 11) {
     starTracker.innerHTML = starCount;
     starCount = '<i class="far fa-star"></i><i class="far fa-star"></i><i class="fas fa-star"></i>';
-  } else if (turnCount > 19) {
-    starTracker.innerHTML = starCount;
-    starCount = '<i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
   } else {
     starTracker.innerHTML = starCount;
     starCount = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
