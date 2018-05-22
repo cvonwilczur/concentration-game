@@ -153,17 +153,42 @@ header button {
     min-width: 125px;
   }
   header {
-    min-width: 475px;
+    min-width: 200px;
   }
   section {
-    min-width: 475px;
-    padding: 16px;
+    min-width: 200px;
+    padding: 12px;
   }
   header button {
-    padding: 5px 10px;
+    padding: 2px;
+    font-size: 12px;
   }
   .winScreen {
-    min-width: 475px;
+    min-width: 200px;
+  }
+  .winButton {
+    padding: 5px 10px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .card {
+    min-height: 125px;
+    min-width: 125px;
+  }
+  header {
+    min-width: 200px;
+  }
+  section {
+    min-width: 200px;
+    padding: 8px;
+  }
+  header button {
+    padding: 2px;
+    font-size: 12px;
+  }
+  .winScreen {
+    min-width: 200px;
   }
   .winButton {
     padding: 5px 10px;
