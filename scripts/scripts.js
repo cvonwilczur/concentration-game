@@ -111,6 +111,7 @@ function resetAll() {
   addValuestoCards();
   stopTimer();
   startTimer();
+  resetCardState();
 }
 
 //Point Tracking Functionality
