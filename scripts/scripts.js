@@ -18,7 +18,24 @@ let gameScore = 0;
 let turnCount = 0;
 let timer = 0;
 let starCount = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
-let cardValues = [ "A", "B", "C", "D", "E", "F", "G", "H", "A", "B", "C", "D", "E", "F", "G", "H"];
+let cardValues = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H"
+];
 
 //Initialize Section
 init();
@@ -75,7 +92,7 @@ function doCardsMatch() {
       twoCardsSelected = false
     }
     setTimeout(blockCardFlip, 1000);
-  } else if (oneCardSelected === true && twoCardsSelected === false && event.target.textContent != firstCardSelected.textContent){
+  } else if (oneCardSelected === true && twoCardsSelected === false && event.target.textContent != firstCardSelected.textContent) {
     flip();
     firstCardSelected.parentNode.addEventListener('click', doCardsMatch);
     let firstWrongCard = firstCardSelected;
@@ -129,10 +146,10 @@ function resetAll() {
   starCount = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
   updateTurn();
   updateStars();
-  if (timer != 0){
+  if (timer != 0) {
     stopTimer();
   }
-  if (firstCardSelected !== 0){
+  if (firstCardSelected !== 0) {
     resetCardState();
   }
 }
@@ -157,17 +174,17 @@ function updateStars() {
 
 //Timer Functionality
 function startTimer() {
-    timer = setInterval(function() {
-      seconds++;
-      if (seconds <= 59) {
-        secondTimer.textContent = seconds;
-      } else if (seconds === 60) {
-        seconds = 0;
-        minutes++;
-        minuteTimer.textContent = minutes;
-        secondTimer.textContent = seconds;
-      }
-    }, 1000)
+  timer = setInterval(function() {
+    seconds++;
+    if (seconds <= 59) {
+      secondTimer.textContent = seconds;
+    } else if (seconds === 60) {
+      seconds = 0;
+      minutes++;
+      minuteTimer.textContent = minutes;
+      secondTimer.textContent = seconds;
+    }
+  }, 1000)
   // }
   deck.removeEventListener('click', startTimer)
 }
@@ -188,8 +205,7 @@ function winScreen() {
     let winSeconds = seconds;
     stopTimer();
     let winMessage = document.createElement('h1')
-    let winMessageText = document.createTextNode(`Congratulations! You Won!`+
-      ` With ${turnCount} Moves, your total time was ${winMinutes} minute(s) and ${winSeconds} second(s), and your Star Score was: `);
+    let winMessageText = document.createTextNode(`Congratulations! You Won!` + ` With ${turnCount} Moves, your total time was ${winMinutes} minute(s) and ${winSeconds} second(s), and your Star Score was: `);
     let winResetButton = document.createElement('button');
     let winResetButtonText = document.createTextNode('Reset?');
     let winStarScore = document.createElement('div');

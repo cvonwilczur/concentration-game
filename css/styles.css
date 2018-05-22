@@ -24,7 +24,6 @@ header {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   max-width: 880px;
-  min-width: 660px;
   margin: 10px auto;
 }
 
@@ -32,7 +31,6 @@ section {
   width: 100%;
   max-width: 880px;
   min-width: 660px;
-  padding: 10px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -145,4 +143,29 @@ header button {
   margin: 10px auto;
   width: 15%;
   text-align: center;
+}
+
+/* Media Queries */
+
+@media screen and (max-width: 480px) {
+  .card {
+    min-height: 125px;
+    min-width: 125px;
+  }
+  header {
+    min-width: 475px;
+  }
+  section {
+    min-width: 475px;
+    padding: 16px;
+  }
+  header button {
+    padding: 5px 10px;
+  }
+  .winScreen {
+    min-width: 475px;
+  }
+  .winButton {
+    padding: 5px 10px;
+  }
 }
